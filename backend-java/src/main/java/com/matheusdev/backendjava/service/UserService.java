@@ -5,10 +5,14 @@ import com.matheusdev.backendjava.dto.UserDTO;
 import com.matheusdev.backendjava.entities.User;
 import com.matheusdev.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -24,6 +28,6 @@ public class UserService {
         entity.setName(userDTO.getName());
         entity.setUsername(userDTO.getUsername());
         entity.setEmail(userDTO.getEmail());
-        entity.setPassword(userDTO.getPassword());
+        entity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }
 }
