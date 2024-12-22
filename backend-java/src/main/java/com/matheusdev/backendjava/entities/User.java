@@ -1,7 +1,11 @@
 package com.matheusdev.backendjava.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "users")
 public class User {
@@ -12,6 +16,9 @@ public class User {
     private String username;
     private String email;
     private String password;
+
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public User() {
     }
@@ -62,5 +69,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 }
