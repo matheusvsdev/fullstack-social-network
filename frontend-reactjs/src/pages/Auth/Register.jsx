@@ -1,7 +1,7 @@
 import "./Auth.css";
 
 // Components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Hooks
 import { useState, useEffect } from "react";
@@ -15,6 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +36,8 @@ const Register = () => {
         setUsername("");
         setEmail("");
         setPassword("");
+
+        navigate("/login");
       })
       .catch((error) => {
         setError(error.message);
@@ -43,7 +46,7 @@ const Register = () => {
 
   return (
     <div id="register">
-      <h2>ReactGram</h2>
+      <h2>Social Network</h2>
       <p className="subtitle">Cadastre-se para ver as fotos dos seus amigos.</p>
       <form onSubmit={handleSubmit}>
         <input
@@ -70,11 +73,11 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" placeholder="Cadastrar" />
+        <input type="submit" value="Cadastrar" />
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
       <p>
-        Já tem conta? <Link to="/login">Clique aqui.</Link>
+        Já tem conta? <Link to="/login">Entrar</Link>
       </p>
     </div>
   );

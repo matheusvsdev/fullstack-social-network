@@ -1,4 +1,5 @@
 import "./Navbar.css";
+import logo from "../assets/logo.png"
 
 // Components
 import { NavLink, Link } from "react-router-dom";
@@ -12,7 +13,9 @@ import {
 const Navbar = () => {
   return (
     <nav id="nav">
-      <Link to="/">ReactGram</Link>
+      <Link to="/">
+        <img src={logo} alt="Logo" id="logo" />
+      </Link>
       <form id="search-form">
         <BsSearch />
         <input type="text" placeholder="Pesquisar" />
