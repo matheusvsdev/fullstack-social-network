@@ -1,10 +1,10 @@
 import "./Auth.css";
 
 // Components
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Biblioteca axios
 import axios from "axios";
@@ -15,7 +15,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,13 +30,26 @@ const Register = () => {
       .post("http://localhost:8080/users", user)
       .then((response) => {
         console.log(response.data);
-        // Limpar os campos de input
-        setName("");
-        setUsername("");
-        setEmail("");
-        setPassword("");
-
-        navigate("/login");
+        axios
+          .post("http://localhost:8080/auth/login", {
+            username: user.username,
+            password: user.password,
+          })
+          .then((response) => {
+            const token = response.data;
+            if (token) {
+              localStorage.setItem("token", token);
+              axios.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${token}`;
+              window.location.href = "/home"; // Redireciona para a página de home e recarrega
+            } else {
+              setError("Erro ao fazer login");
+            }
+          })
+          .catch((error) => {
+            setError(error.message);
+          });
       })
       .catch((error) => {
         setError(error.message);

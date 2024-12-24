@@ -1,10 +1,10 @@
 import "./Auth.css";
 
 // Components
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Biblioteca axios
 import axios from "axios";
@@ -13,7 +13,6 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +29,7 @@ const Login = () => {
         if (token) {
           localStorage.setItem("token", token);
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          navigate("/home");
+          window.location.href = "/";
         } else {
           setError("Token inválido ou expirado");
         }
