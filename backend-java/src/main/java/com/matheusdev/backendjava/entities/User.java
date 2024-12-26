@@ -15,7 +15,9 @@ public class User implements UserDetails {
 
     @Id
     private String id;
+    private String profileImage;
     private String name;
+    private String bio;
     private String username;
     private String email;
     private String password;
@@ -26,9 +28,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String id, String name, String username, String email, String password) {
+    public User(String id, String profileImage, String name, String bio, String username, String email, String password) {
         this.id = id;
+        this.profileImage = profileImage;
         this.name = name;
+        this.bio = bio;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -42,12 +46,28 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getUsername() {

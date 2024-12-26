@@ -10,8 +10,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -28,6 +32,32 @@ public class UserService implements UserDetailsService {
         copyDtoToEntity(user, userDTO);
         userRepository.save(user);
         return new ResponseUserDTO(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ResponseUserDTO> findAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(ResponseUserDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseUserDTO findById(String id) {
+        Optional<User> result = userRepository.findById(id);
+        User user = result.orElseThrow(() -> new RuntimeException("User not found"));
+        return new ResponseUserDTO(user);
+    }
+
+    @Transactional
+    public ResponseUserDTO update(String id, UserDTO userDTO) {
+        Optional<User> result = userRepository.findById(id);
+        User user = result.orElseThrow(() -> new RuntimeException("User not found"));
+        copyDtoToEntity(user, userDTO);
+        userRepository.save(user);
+        return new ResponseUserDTO(user);
+    }
+
+    public void delete(String id) {
+        userRepository.deleteById(id);
     }
 
     @Override
