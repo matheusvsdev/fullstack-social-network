@@ -1,55 +1,34 @@
 package com.matheusdev.backendjava.dto;
 
-import com.matheusdev.backendjava.entities.User;
+import com.matheusdev.backendjava.entities.UserEntity;
 
 public class ResponseUserDTO {
 
-    private String id;
-    private String profileImage;
-    private String name;
-    private String bio;
-    private String username;
+    private String objectId;
+    private String fullName;
     private String email;
 
     public ResponseUserDTO() {
     }
 
-    public ResponseUserDTO(String id, String profileImage, String name, String bio, String username, String email) {
-        this.id = id;
-        this.profileImage = profileImage;
-        this.name = name;
-        this.bio = bio;
-        this.username = username;
+    public ResponseUserDTO(String objectId, String fullName, String email) {
+        this.objectId = objectId;
+        this.fullName = fullName;
         this.email = email;
     }
 
-    public ResponseUserDTO(User user) {
-        this.id = user.getId();
-        this.profileImage = user.getProfileImage();
-        this.name = user.getName();
-        this.bio = user.getBio();
-        this.username = user.getUsername();
+    public ResponseUserDTO(UserEntity user) {
+        this.objectId = user.getObjectId();
+        this.fullName = user.getFullName();
         this.email = user.getEmail();
     }
 
-    public String getId() {
-        return id;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
     public String getEmail() {

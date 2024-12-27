@@ -1,37 +1,30 @@
 package com.matheusdev.backendjava.dto;
 
-import com.matheusdev.backendjava.entities.User;
+import com.matheusdev.backendjava.entities.UserEntity;
 
 public class UserDTO {
 
-    private String name;
-    private String username;
+    private String fullName;
     private String email;
     private String password;
 
     public UserDTO() {
     }
 
-    public UserDTO(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
+    public UserDTO(String fullName, String email, String password) {
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
 
-    public UserDTO(User user) {
-        this.name = user.getName();
-        this.username = user.getUsername();
+    public UserDTO(UserEntity user) {
+        this.fullName = user.getFullName();
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
 
     public String getEmail() {
