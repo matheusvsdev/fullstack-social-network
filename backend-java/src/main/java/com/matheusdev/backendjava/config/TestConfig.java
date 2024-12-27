@@ -30,7 +30,7 @@ public class TestConfig {
         userRepository.deleteAll();
         postRepository.deleteAll();
 
-        User user1 = new User(null, "www.image.com", "Maria Brown", "null", "mariabrown", "maria@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
+        User user1 = new User(null, "www.image.com", "Maria Brown", "Olá", "mariabrown", "maria@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
         User user2 = new User(null, "www.image.com", "Alex Green", "null", "alexgreen", "alex@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
         User user3 = new User(null, "www.image.com", "Bob Blue", "null", "boblue", "bob@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
 
