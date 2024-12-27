@@ -1,10 +1,10 @@
 package com.matheusdev.backendjava.dto;
 
-import com.matheusdev.backendjava.entities.User;
+import com.matheusdev.backendjava.entities.UserEntity;
 
 public class UserDTO {
 
-    private String name;
+    private String fullName;
     private String username;
     private String email;
     private String password;
@@ -12,22 +12,22 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String name, String username, String email, String password) {
-        this.name = name;
+    public UserDTO(String fullName, String username, String email, String password) {
+        this.fullName = fullName;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public UserDTO(User user) {
-        this.name = user.getName();
+    public UserDTO(UserEntity user) {
+        this.fullName = user.getFullName();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
     public String getUsername() {

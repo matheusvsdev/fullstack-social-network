@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "posts")
-public class Post {
+public class PostEntity {
 
     @Id
-    private String id;
+    private String objectId;
     private Instant createdAt;
     private String title;
     private String content;
@@ -22,23 +22,23 @@ public class Post {
 
     private List<Comment> comments = new ArrayList<>();
 
-    public Post() {
+    public PostEntity() {
     }
 
-    public Post(String id, Instant createdAt, String title, String content, Author author) {
-        this.id = id;
+    public PostEntity(String objectId, Instant createdAt, String title, String content, Author author) {
+        this.objectId = objectId;
         this.createdAt = createdAt;
         this.title = title;
         this.content = content;
         this.author = author;
     }
 
-    public String getId() {
-        return id;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     public Instant getCreatedAt() {

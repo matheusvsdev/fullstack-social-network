@@ -1,75 +1,47 @@
 package com.matheusdev.backendjava.entities;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Document(collection = "users")
-public class User implements UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
-    private String id;
-    private String profileImage;
-    private String name;
-    private String bio;
+    private String objectId;
+    private String fullName;
     private String username;
     private String email;
     private String password;
 
-    @DBRef(lazy = true)
-    private List<Post> posts = new ArrayList<>();
-
-    public User() {
+    public UserEntity() {
     }
 
-    public User(String id, String profileImage, String name, String bio, String username, String email, String password) {
-        this.id = id;
-        this.profileImage = profileImage;
-        this.name = name;
-        this.bio = bio;
+    public UserEntity(String objectId, String fullName, String username, String email, String password) {
+        this.objectId = objectId;
+        this.fullName = fullName;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public String getId() {
-        return id;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
+    @Override
     public String getUsername() {
         return username;
     }
@@ -92,10 +64,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
     }
 
     // Métodos da interface UserDetails

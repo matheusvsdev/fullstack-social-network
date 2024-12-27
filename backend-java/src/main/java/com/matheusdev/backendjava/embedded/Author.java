@@ -1,38 +1,34 @@
 package com.matheusdev.backendjava.embedded;
 
-import com.matheusdev.backendjava.entities.User;
+import com.matheusdev.backendjava.entities.ProfileEntity;
 
 public class Author {
 
-    private String id;
-    private String name;
+    private String objectId;
+    private String username;
 
     public Author() {
     }
 
-    public Author(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public Author(String objectId, String username) {
+        this.objectId = objectId;
+        this.username = username;
     }
 
-    public Author(User entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
+    public Author(ProfileEntity entity) {
+        this.objectId = entity.getObjectId();
+        this.username = entity.getUser().getUsername();
     }
 
-    public String getId() {
-        return id;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

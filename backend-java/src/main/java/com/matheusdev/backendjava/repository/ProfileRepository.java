@@ -1,9 +1,9 @@
 package com.matheusdev.backendjava.repository;
 
-import com.matheusdev.backendjava.entities.PostEntity;
+import com.matheusdev.backendjava.entities.ProfileEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PostRepository extends MongoRepository<PostEntity, String> {
+public interface ProfileRepository extends MongoRepository<ProfileEntity, String> {
 }

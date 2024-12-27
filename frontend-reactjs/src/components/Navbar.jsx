@@ -28,6 +28,10 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
 
+  if (!isLoggedIn) {
+    return null;
+  }
+
   return (
     <nav id="nav">
       <Link to="/">
@@ -38,37 +42,24 @@ const Navbar = () => {
         <input type="text" placeholder="Pesquisar" />
       </form>
       <ul id="nav-links">
-        {isLoggedIn ? (
-          <>
-            <li>
-              <NavLink to="/">
-                <BsHouseDoorFill />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/camera">
-                <BsFillCameraFill />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile">
-                <BsFillPersonFill />
-              </NavLink>
-            </li>
-            <li>
-              <span onClick={handleLogout}>Sair</span>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <NavLink to="/login">Entrar</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">Cadastrar</NavLink>
-            </li>
-          </>
-        )}
+        <li>
+          <NavLink to="/">
+            <BsHouseDoorFill />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/camera">
+            <BsFillCameraFill />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile">
+            <BsFillPersonFill />
+          </NavLink>
+        </li>
+        <li>
+          <span onClick={handleLogout}>Sair</span>
+        </li>
       </ul>
     </nav>
   );

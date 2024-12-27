@@ -1,8 +1,10 @@
 package com.matheusdev.backendjava.service;
 
+import com.matheusdev.backendjava.dto.ProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.dto.UserDTO;
-import com.matheusdev.backendjava.entities.User;
+import com.matheusdev.backendjava.entities.ProfileEntity;
+import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,42 +29,44 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseUserDTO insert(UserDTO userDTO) {
-        User user = new User();
+    public UserEntity insert(UserDTO userDTO) {
+        UserEntity user = new UserEntity();
         copyDtoToEntity(user, userDTO);
+
         userRepository.save(user);
-        return new ResponseUserDTO(user);
+
+        return user;
     }
 
     @Transactional(readOnly = true)
     public List<ResponseUserDTO> findAll() {
-        List<User> users = userRepository.findAll();
+        List<UserEntity> users = userRepository.findAll();
         return users.stream().map(ResponseUserDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public ResponseUserDTO findById(String id) {
-        Optional<User> result = userRepository.findById(id);
-        User user = result.orElseThrow(() -> new RuntimeException("User not found"));
+    public ResponseUserDTO findById(String objectId) {
+        Optional<UserEntity> result = userRepository.findById(objectId);
+        UserEntity user = result.orElseThrow(() -> new RuntimeException("User not found"));
         return new ResponseUserDTO(user);
     }
 
     @Transactional
-    public ResponseUserDTO update(String id, UserDTO userDTO) {
-        Optional<User> result = userRepository.findById(id);
-        User user = result.orElseThrow(() -> new RuntimeException("User not found"));
+    public ResponseUserDTO update(String objectId, UserDTO userDTO) {
+        Optional<UserEntity> result = userRepository.findById(objectId);
+        UserEntity user = result.orElseThrow(() -> new RuntimeException("User not found"));
         copyDtoToEntity(user, userDTO);
         userRepository.save(user);
         return new ResponseUserDTO(user);
     }
 
-    public void delete(String id) {
-        userRepository.deleteById(id);
+    public void delete(String objectId) {
+        userRepository.deleteById(objectId);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User result = userRepository.findByUsername(username);
+        UserEntity result = userRepository.findByUsername(username);
         if (result == null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
@@ -75,8 +79,8 @@ public class UserService implements UserDetailsService {
         return passwordEncoder.matches(password, userDetails.getPassword());
     }
 
-    public void copyDtoToEntity(User entity, UserDTO userDTO) {
-        entity.setName(userDTO.getName());
+    public void copyDtoToEntity(UserEntity entity, UserDTO userDTO) {
+        entity.setFullName(userDTO.getFullName());
         entity.setUsername(userDTO.getUsername());
         entity.setEmail(userDTO.getEmail());
         entity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
