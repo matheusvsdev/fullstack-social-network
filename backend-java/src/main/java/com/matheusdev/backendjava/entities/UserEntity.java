@@ -14,15 +14,17 @@ public class UserEntity implements UserDetails {
     @Id
     private String objectId;
     private String fullName;
+    private String username;
     private String email;
     private String password;
 
     public UserEntity() {
     }
 
-    public UserEntity(String objectId, String fullName, String email, String password) {
+    public UserEntity(String objectId, String fullName, String username, String email, String password) {
         this.objectId = objectId;
         this.fullName = fullName;
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -37,6 +39,15 @@ public class UserEntity implements UserDetails {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -56,12 +67,6 @@ public class UserEntity implements UserDetails {
     }
 
     // Métodos da interface UserDetails
-
-    @Override
-    public String getUsername() {
-        ProfileEntity profile = new ProfileEntity();
-        return profile.getUsername();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

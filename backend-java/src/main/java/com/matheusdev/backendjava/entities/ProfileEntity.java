@@ -13,9 +13,8 @@ public class ProfileEntity {
     @Id
     private String objectId;
     private String profileImage;
-    private String username;
-    private Integer followers;
-    private Integer following;
+    private Long followers;
+    private Long following;
     private String bio;
 
     @DBRef
@@ -27,10 +26,9 @@ public class ProfileEntity {
     public ProfileEntity() {
     }
 
-    public ProfileEntity(String objectId, String profileImage, String username, Integer followers, Integer following, String bio, UserEntity user) {
+    public ProfileEntity(String objectId, String profileImage, Long followers, Long following, String bio, UserEntity user) {
         this.objectId = objectId;
         this.profileImage = profileImage;
-        this.username = username;
         this.followers = followers;
         this.following = following;
         this.bio = bio;
@@ -49,27 +47,19 @@ public class ProfileEntity {
         this.profileImage = profileImage;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getFollowers() {
+    public Long getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Integer followers) {
+    public void setFollowers(Long followers) {
         this.followers = followers;
     }
 
-    public Integer getFollowing() {
+    public Long getFollowing() {
         return following;
     }
 
-    public void setFollowing(Integer following) {
+    public void setFollowing(Long following) {
         this.following = following;
     }
 

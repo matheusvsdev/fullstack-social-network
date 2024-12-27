@@ -2,6 +2,7 @@ package com.matheusdev.backendjava.controller;
 
 import com.matheusdev.backendjava.dto.ProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseProfileDTO;
+import com.matheusdev.backendjava.dto.UserDTO;
 import com.matheusdev.backendjava.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping
-    public ResponseEntity<ResponseProfileDTO> create(@RequestBody ProfileDTO profileDTO) {
-        ResponseProfileDTO profile = profileService.create(profileDTO);
+    public ResponseEntity<ResponseProfileDTO> save(@RequestBody UserDTO userDTO) {
+        ResponseProfileDTO profile = profileService.create(userDTO);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{objectId}")

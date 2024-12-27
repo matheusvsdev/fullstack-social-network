@@ -1,7 +1,9 @@
 package com.matheusdev.backendjava.service;
 
+import com.matheusdev.backendjava.dto.ProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.dto.UserDTO;
+import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,9 @@ public class UserService implements UserDetailsService {
     public UserEntity insert(UserDTO userDTO) {
         UserEntity user = new UserEntity();
         copyDtoToEntity(user, userDTO);
+
         userRepository.save(user);
+
         return user;
     }
 
@@ -77,6 +81,7 @@ public class UserService implements UserDetailsService {
 
     public void copyDtoToEntity(UserEntity entity, UserDTO userDTO) {
         entity.setFullName(userDTO.getFullName());
+        entity.setUsername(userDTO.getUsername());
         entity.setEmail(userDTO.getEmail());
         entity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }

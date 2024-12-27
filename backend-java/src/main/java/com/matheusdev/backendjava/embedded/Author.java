@@ -17,7 +17,7 @@ public class Author {
 
     public Author(ProfileEntity entity) {
         this.objectId = entity.getObjectId();
-        this.username = entity.getUsername();
+        this.username = entity.getUser().getUsername();
     }
 
     public String getObjectId() {

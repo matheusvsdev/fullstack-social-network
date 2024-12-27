@@ -6,19 +6,17 @@ public class ResponseProfileDTO {
 
     private String objectId;
     private String profileImage;
-    private String username;
-    private Integer followers;
-    private Integer following;
+    private Long followers;
+    private Long following;
     private String bio;
     private ResponseUserDTO user;
 
     public ResponseProfileDTO() {
     }
 
-    public ResponseProfileDTO(String objectId, String profileImage, String username, Integer followers, Integer following, String bio, ResponseUserDTO user) {
+    public ResponseProfileDTO(String objectId, String profileImage, Long followers, Long following, String bio, ResponseUserDTO user) {
         this.objectId = objectId;
         this.profileImage = profileImage;
-        this.username = username;
         this.followers = followers;
         this.following = following;
         this.bio = bio;
@@ -28,7 +26,6 @@ public class ResponseProfileDTO {
     public ResponseProfileDTO(ProfileEntity entity) {
         this.objectId = entity.getObjectId();
         this.profileImage = entity.getProfileImage();
-        this.username = entity.getUsername();
         this.followers = entity.getFollowers();
         this.following = entity.getFollowing();
         this.bio = entity.getBio();
@@ -43,15 +40,11 @@ public class ResponseProfileDTO {
         return profileImage;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getFollowers() {
+    public Long getFollowers() {
         return followers;
     }
 
-    public Integer getFollowing() {
+    public Long getFollowing() {
         return following;
     }
 

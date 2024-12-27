@@ -1,39 +1,43 @@
 package com.matheusdev.backendjava.dto;
 
+import com.matheusdev.backendjava.entities.ProfileEntity;
+
 public class ProfileDTO {
 
     private String profileImage;
-    private String username;
-    private Integer followers;
-    private Integer following;
+    private Long followers;
+    private Long following;
     private String bio;
     private UserDTO user;
 
     public ProfileDTO() {
     }
 
-    public ProfileDTO(String profileImage, String username, Integer followers, Integer following, String bio, UserDTO user) {
+    public ProfileDTO(String profileImage, Long followers, Long following, String bio, UserDTO user) {
         this.profileImage = profileImage;
-        this.username = username;
         this.followers = followers;
         this.following = following;
         this.bio = bio;
         this.user = user;
     }
 
+    public ProfileDTO(ProfileEntity entity) {
+        profileImage = entity.getProfileImage();
+        followers = entity.getFollowers();
+        following = entity.getFollowing();
+        bio = entity.getBio();
+        user = new UserDTO(entity.getUser());
+    }
+
     public String getProfileImage() {
         return profileImage;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getFollowers() {
+    public Long getFollowers() {
         return followers;
     }
 
-    public Integer getFollowing() {
+    public Long getFollowing() {
         return following;
     }
 

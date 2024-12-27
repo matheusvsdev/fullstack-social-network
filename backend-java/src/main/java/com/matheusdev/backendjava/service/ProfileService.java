@@ -2,7 +2,7 @@ package com.matheusdev.backendjava.service;
 
 import com.matheusdev.backendjava.dto.ProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseProfileDTO;
-import com.matheusdev.backendjava.dto.ResponseUserDTO;
+import com.matheusdev.backendjava.dto.UserDTO;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +21,14 @@ public class ProfileService {
     private UserService userService;
 
     @Transactional
-    public ResponseProfileDTO create(ProfileDTO profileDTO) {
+    public ResponseProfileDTO create(UserDTO userDTO) {
         ProfileEntity profile = new ProfileEntity();
         profile.setProfileImage("");
-        profile.setUsername(profileDTO.getUsername());
-        profile.setFollowers(0);
-        profile.setFollowing(0);
         profile.setBio("");
-        profile.setUser(userService.insert(profileDTO.getUser()));
-
-        profile = profileRepository.save(profile);
+        profile.setFollowers(0L);
+        profile.setFollowing(0L);
+        profile.setUser(userService.insert(userDTO));
+        profileRepository.save(profile);
 
         return new ResponseProfileDTO(profile);
     }
@@ -46,7 +44,8 @@ public class ProfileService {
 
     public void copyDtoToEntity(ProfileEntity entity, ProfileDTO profileDTO) {
         entity.setProfileImage(profileDTO.getProfileImage());
-        entity.setUsername(profileDTO.getUsername());
         entity.setBio(profileDTO.getBio());
+        entity.setFollowers(profileDTO.getFollowers());
+        entity.setFollowing(profileDTO.getFollowing());
     }
 }
