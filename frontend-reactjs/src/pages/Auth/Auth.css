@@ -1,10 +1,18 @@
 #login,
 #register {
-  border: 1px solid #363636;
-  background-color: #000;
+  border: 1px solid #d3d3d3;
+  background-color: #ffff;
   padding: 1.5em 2em;
   max-width: 23%;
-  margin: 2em auto;
+  margin: 6em auto;
+}
+
+img {
+  width: 50%;  
+  height: auto;  
+  display: block;  
+  margin: 0 auto;   
+  padding-bottom: 1rem;
 }
 
 #login h2,
@@ -16,7 +24,7 @@
 
 .subtitle {
   font-weight: bold;
-  color: #999;
+  color: #363636;
   margin-bottom: 1.5em;
 }
 
@@ -27,7 +35,7 @@
   border-bottom: 1px solid #363636;
 }
 
-#login form * ,
+#login form *,
 #register form * {
   border-radius: 10px;
 }
@@ -40,5 +48,5 @@
 #login p a,
 #register p a {
   font-weight: bold;
-  color: #00c92c;
+  color: #016fa6;
 }

@@ -1,4 +1,5 @@
 import "./Auth.css";
+import Logo from "../../assets/logo_social.png";
 
 // Components
 import { Link } from "react-router-dom";
@@ -10,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,14 +21,14 @@ const Register = () => {
     e.preventDefault();
 
     const user = {
-      name,
-      username,
-      email,
-      password,
+      fullName: fullName,
+      username: username,
+      email: email,
+      password: password,
     };
 
     axios
-      .post("http://localhost:8080/users", user)
+      .post("http://localhost:8080/profiles", user)
       .then((response) => {
         console.log(response.data);
         axios
@@ -58,14 +59,15 @@ const Register = () => {
 
   return (
     <div id="register">
+      <img src={Logo} alt="Logo" />
       <h2>Social Network</h2>
       <p className="subtitle">Cadastre-se para ver as fotos dos seus amigos.</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
         />
         <input
           type="text"

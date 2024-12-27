@@ -1,4 +1,5 @@
 import "./Auth.css";
+import Logo from "../../assets/logo_social.png"
 
 // Components
 import { Link } from "react-router-dom";
@@ -41,6 +42,7 @@ const Login = () => {
 
   return (
     <div id="login">
+      <img src={Logo} alt="Logo" />
       <h2>Social Network</h2>
       <p className="subtitle">
         Acesse sua conta e compartilhe momentos com quem faz parte deles.
