@@ -1,10 +1,11 @@
 package com.matheusdev.backendjava.service;
 
-import com.matheusdev.backendjava.dto.ProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseUserDTO;
+import com.matheusdev.backendjava.dto.RoleDTO;
 import com.matheusdev.backendjava.dto.UserDTO;
-import com.matheusdev.backendjava.entities.ProfileEntity;
+import com.matheusdev.backendjava.entities.RoleEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
+import com.matheusdev.backendjava.repository.RoleRepository;
 import com.matheusdev.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,9 +30,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public UserEntity insert(UserDTO userDTO) {
         UserEntity user = new UserEntity();
+        user.setRoles(new ArrayList<>());
         copyDtoToEntity(user, userDTO);
+
+        addUserRole(user, userDTO);
 
         userRepository.save(user);
 
@@ -66,17 +73,29 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity result = userRepository.findByUsername(username);
-        if (result == null) {
+        UserEntity user = userRepository.findByUsernameAndRoles(username);
+        if (user == null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
 
-        return new org.springframework.security.core.userdetails.User(result.getUsername(), result.getPassword(), new ArrayList<>());
+        return user;
     }
 
-    public boolean checkPassword(String username, String password) {
-        UserDetails userDetails = loadUserByUsername(username);
-        return passwordEncoder.matches(password, userDetails.getPassword());
+    public void addUserRole(UserEntity user, UserDTO userDTO) {
+
+        user.getRoles().clear();
+        if (userDTO.getRoles() == null || userDTO.getRoles().isEmpty()) {
+            RoleEntity defaultRole = roleRepository.findByAuthority("ROLE_USER");
+            user.getRoles().add(defaultRole);
+
+        } else {
+            for (RoleDTO roleDTO : userDTO.getRoles()) {
+                RoleEntity role = roleRepository.findByAuthority(roleDTO.getAuthority());
+                if (role != null) {
+                    user.getRoles().add(role);
+                }
+            }
+        }
     }
 
     public void copyDtoToEntity(UserEntity entity, UserDTO userDTO) {

@@ -16,8 +16,8 @@ public class PostService {
 
     public PostEntity create(PostDTO postDTO) {
         PostEntity post = new PostEntity();
-        post.setTitle(postDTO.getTitle());
-        post.setContent(postDTO.getContent());
+        post.setImage(postDTO.getImageUrl());
+        post.setDescription(postDTO.getDescription());
         post.setCreatedAt(Instant.now());
         post.setAuthor(postDTO.getAuthor());
         return postRepository.save(post);
