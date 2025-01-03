@@ -1,13 +1,12 @@
 package com.matheusdev.backendjava.service;
 
-import com.matheusdev.backendjava.dto.UserDTO;
+import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,20 +24,20 @@ public class AuthService {
 		return userRepository.findByUsername(username);
 	}
 
-	public void validateSelfOrAdmin(Long userId) {
+	public void validateSelfOrAdmin(String objectId) {
 		UserEntity me = authenticated();
 		if (me.hasRole("ROLE_ADMIN")) {
 			return;
 		}
-		if (!me.getObjectId().equals(userId)) {
+		if (!me.getObjectId().equals(objectId)) {
 			throw new UsernameNotFoundException("Acesso negado. Deve ser o próprio usuário ou admin");
 		}
 	}
 
 	@Transactional(readOnly = true)
-	public UserDTO getMe() {
+	public ResponseUserDTO getMe() {
 		UserEntity user = authenticated();
 
-		return new UserDTO(user);
+		return new ResponseUserDTO(user);
 	}
 }

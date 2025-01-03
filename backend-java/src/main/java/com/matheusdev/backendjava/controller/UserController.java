@@ -21,37 +21,39 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private AuthService authService;
-
-    @Autowired
     private UpdateOwnUserService updateOwnUserService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Autowired
+    private AuthService authService;
+
     @GetMapping
     public ResponseEntity<List<ResponseUserDTO>> findAll() {
         List<ResponseUserDTO> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{objectId}")
     public ResponseEntity<ResponseUserDTO> findById(@PathVariable String objectId) {
         ResponseUserDTO user = userService.findById(objectId);
         return ResponseEntity.ok().body(user);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{objectId}")
     public ResponseEntity<ResponseUserDTO> update(@PathVariable String objectId, @RequestBody UserDTO userDTO) {
         ResponseUserDTO user = userService.update(objectId, userDTO);
         return ResponseEntity.ok().body(user);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "{objectId}")
     public ResponseEntity<ResponseUserDTO> delete(@PathVariable String objectId) {
         userService.delete(objectId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/me")
+    public ResponseEntity<ResponseUserDTO> findMe() {
+        ResponseUserDTO userDTO = authService.getMe();
+        return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping(value = "/me")
