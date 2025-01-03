@@ -31,13 +31,22 @@ const Register = () => {
       .post("http://localhost:8080/profiles", user)
       .then((response) => {
         console.log(response.data);
-        axios
-          .post("http://localhost:8080/auth/login", {
-            username: user.username,
-            password: user.password,
-          })
+        const params = new URLSearchParams();
+        params.append("grant_type", "password");
+        params.append("username", user.username);
+        params.append("password", user.password);
+
+        axios({
+          method: "post",
+          url: "http://localhost:8080/oauth2/token",
+          data: params.toString(),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${btoa(`myclientid:myclientsecret`)}`,
+          },
+        })
           .then((response) => {
-            const token = response.data;
+            const token = response.data.access_token;
             if (token) {
               localStorage.setItem("token", token);
               axios.defaults.headers.common[
@@ -65,7 +74,7 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nome"
+          placeholder="Nome Completo"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
         />

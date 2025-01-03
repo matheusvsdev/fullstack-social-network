@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import Profile from "./pages/Profile/Profile";
+import EditProfile from "./pages/EditProfile/EditProfile";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -21,6 +23,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
             </Routes>
           </div>
           <Footer />

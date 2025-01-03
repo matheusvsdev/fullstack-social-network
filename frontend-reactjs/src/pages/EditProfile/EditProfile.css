@@ -1,5 +1,4 @@
-#login,  
-#register {  
+#edit-profile {
   position: absolute;  
   top: 45%;  
   left: 50%;  
@@ -11,47 +10,26 @@
   margin: 0 auto;  
 }
 
-
-img {
-  width: 50%;  
-  height: auto;  
-  display: block;  
-  margin: 0 auto;   
-  padding-bottom: 1rem;
-}
-
-#login h2,
-#register h2 {
+#edit-profile h2 {
   text-align: center;
   font-size: 2em;
   margin-top: 0;
 }
 
-.subtitle {
-  font-weight: bold;
-  color: #363636;
-  margin-bottom: 1.5em;
-}
-
-#login form,
-#register form {
+#edit-profile {
   padding-bottom: 1.5em;
   margin-bottom: 1.5em;
-  border-bottom: 1px solid #363636;
 }
 
-#login form *,
-#register form * {
+#edit-profile form * {
   border-radius: 10px;
 }
 
-#login p,
-#register p {
+#edit-profile p {
   text-align: center;
 }
 
-#login p a,
-#register p a {
+#edit-profile p a {
   font-weight: bold;
   color: #0b50d1;
 }
