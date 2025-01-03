@@ -1,8 +1,7 @@
 package com.matheusdev.backendjava.controller;
 
-import com.matheusdev.backendjava.dto.ProfileDTO;
-import com.matheusdev.backendjava.dto.ResponseProfileDTO;
-import com.matheusdev.backendjava.dto.UserDTO;
+import com.matheusdev.backendjava.dto.*;
+import com.matheusdev.backendjava.service.AuthService;
 import com.matheusdev.backendjava.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,9 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private AuthService authService;
 
     @PostMapping
     public ResponseEntity<ResponseProfileDTO> save(@RequestBody UserDTO userDTO) {

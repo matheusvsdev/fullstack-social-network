@@ -2,13 +2,15 @@ package com.matheusdev.backendjava.controller;
 
 import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.dto.UserDTO;
+import com.matheusdev.backendjava.service.AuthService;
+import com.matheusdev.backendjava.service.UpdateOwnUserService;
+import com.matheusdev.backendjava.dto.UpdateUserDTO;
 import com.matheusdev.backendjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UpdateOwnUserService updateOwnUserService;
+
+    @Autowired
+    private AuthService authService;
 
     @GetMapping
     public ResponseEntity<List<ResponseUserDTO>> findAll() {
@@ -40,5 +48,17 @@ public class UserController {
     public ResponseEntity<ResponseUserDTO> delete(@PathVariable String objectId) {
         userService.delete(objectId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/me")
+    public ResponseEntity<ResponseUserDTO> findMe() {
+        ResponseUserDTO userDTO = authService.getMe();
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(value = "/me")
+    public ResponseEntity<ResponseUserDTO> updateSelf(@RequestBody UpdateUserDTO dto) {
+        ResponseUserDTO newDto = updateOwnUserService.updateSelf(dto);
+        return ResponseEntity.ok().body(newDto);
     }
 }

@@ -2,11 +2,11 @@ package com.matheusdev.backendjava.entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Document(collection = "users")
 public class UserEntity implements UserDetails {
@@ -17,6 +17,9 @@ public class UserEntity implements UserDetails {
     private String username;
     private String email;
     private String password;
+
+    @Field("roles")
+    private List<RoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -66,11 +69,33 @@ public class UserEntity implements UserDetails {
         this.password = password;
     }
 
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public List<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void addRole(RoleEntity role) {
+        roles.add(role);
+    }
+
+    // Verifica se o usuário tem um papel específico
+    public boolean hasRole(String roleName) {
+        for (RoleEntity role : roles) {
+            if (role.getAuthority().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Métodos da interface UserDetails
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles;
     }
 
     @Override

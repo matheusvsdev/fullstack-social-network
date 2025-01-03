@@ -2,12 +2,17 @@ package com.matheusdev.backendjava.dto;
 
 import com.matheusdev.backendjava.entities.UserEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UserDTO {
 
     private String fullName;
     private String username;
     private String email;
     private String password;
+    private List<RoleDTO> roles = new ArrayList<>();
 
     public UserDTO() {
     }
@@ -24,6 +29,9 @@ public class UserDTO {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.roles = user.getRoles().stream()
+                .map(RoleDTO::new)
+                .collect(Collectors.toList());
     }
 
     public String getFullName() {
@@ -40,5 +48,13 @@ public class UserDTO {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDTO> roles) {
+        this.roles = roles;
     }
 }

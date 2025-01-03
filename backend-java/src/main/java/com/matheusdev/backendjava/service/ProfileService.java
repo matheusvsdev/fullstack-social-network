@@ -45,7 +45,5 @@ public class ProfileService {
     public void copyDtoToEntity(ProfileEntity entity, ProfileDTO profileDTO) {
         entity.setProfileImage(profileDTO.getProfileImage());
         entity.setBio(profileDTO.getBio());
-        entity.setFollowers(profileDTO.getFollowers());
-        entity.setFollowing(profileDTO.getFollowing());
     }
 }

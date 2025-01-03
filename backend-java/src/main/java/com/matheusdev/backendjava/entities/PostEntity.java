@@ -15,8 +15,8 @@ public class PostEntity {
     @Id
     private String objectId;
     private Instant createdAt;
-    private String title;
-    private String content;
+    private String image;
+    private String description;
 
     private Author author;
 
@@ -25,11 +25,11 @@ public class PostEntity {
     public PostEntity() {
     }
 
-    public PostEntity(String objectId, Instant createdAt, String title, String content, Author author) {
+    public PostEntity(String objectId, Instant createdAt, String image, String description, Author author) {
         this.objectId = objectId;
         this.createdAt = createdAt;
-        this.title = title;
-        this.content = content;
+        this.image = image;
+        this.description = description;
         this.author = author;
     }
 
@@ -49,20 +49,20 @@ public class PostEntity {
         this.createdAt = createdAt;
     }
 
-    public String getTitle() {
-        return title;
+    public String getImage() {
+        return image;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Author getAuthor() {

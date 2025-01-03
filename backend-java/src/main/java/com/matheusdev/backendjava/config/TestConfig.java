@@ -3,10 +3,12 @@ package com.matheusdev.backendjava.config;
 import com.matheusdev.backendjava.embedded.Author;
 import com.matheusdev.backendjava.embedded.Comment;
 import com.matheusdev.backendjava.entities.PostEntity;
+import com.matheusdev.backendjava.entities.RoleEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.repository.PostRepository;
 import com.matheusdev.backendjava.repository.ProfileRepository;
+import com.matheusdev.backendjava.repository.RoleRepository;
 import com.matheusdev.backendjava.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,30 @@ public class TestConfig {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostConstruct
     public void init() {
 
         userRepository.deleteAll();
         profileRepository.deleteAll();
         postRepository.deleteAll();
+        roleRepository.deleteAll();
 
         UserEntity maria = new UserEntity(null, "Maria Brown", "dev.maria", "maria@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
         UserEntity alex = new UserEntity(null, "Alex Green", "eng.alex", "alex@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
         UserEntity bob = new UserEntity(null, "Bob Blue", "devops.bob", "bob@example.com", "$2a$10$KpjXNGiX3wTz70cMrVtZEuKiduW4YYXv8XuxYYd2.NGXxYvzssHjC");
+
+        RoleEntity user = new RoleEntity(null, "ROLE_USER");
+        RoleEntity admin = new RoleEntity(null, "ROLE_ADMIN");
+
+        roleRepository.saveAll(Arrays.asList(user, admin));
+
+        // Associar o papel ao usuário
+        maria.getRoles().addAll(Arrays.asList(user, admin));
+        alex.getRoles().add(user);
+        bob.getRoles().add(admin);
 
         ProfileEntity profileMaria = new ProfileEntity(null, "http://profileimage", 0L, 0L, "SP", maria);
         ProfileEntity profileAlex = new ProfileEntity(null, "http://profileimage", 0L, 0L, "AL", alex);

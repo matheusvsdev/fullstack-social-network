@@ -1,5 +1,5 @@
 import "./Auth.css";
-import Logo from "../../assets/logo_social.png"
+import Logo from "../../assets/logo_social.png";
 
 // Components
 import { Link } from "react-router-dom";
@@ -10,6 +10,9 @@ import { useState } from "react";
 // Biblioteca axios
 import axios from "axios";
 
+const clientId = "myclientid";
+const clientSecret = "myclientsecret";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,15 +21,22 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = {
-      username,
-      password,
-    };
+    const params = new URLSearchParams();
+    params.append("grant_type", "password");
+    params.append("username", username);
+    params.append("password", password);
 
-    axios
-      .post("http://localhost:8080/auth/login", user)
+    axios({
+      method: "post",
+      url: "http://localhost:8080/oauth2/token",
+      data: params.toString(),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+      },
+    })
       .then((response) => {
-        const token = response.data;
+        const token = response.data.access_token;
         if (token) {
           localStorage.setItem("token", token);
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -36,7 +46,7 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        setError(error.message);
+        console.error(error.response.data);  
       });
   };
 

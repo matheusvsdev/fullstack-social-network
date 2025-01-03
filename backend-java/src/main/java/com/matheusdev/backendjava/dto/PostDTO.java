@@ -5,31 +5,31 @@ import com.matheusdev.backendjava.entities.PostEntity;
 
 public class PostDTO {
 
-    private String title;
-    private String content;
+    private String imageUrl;
+    private String description;
     private Author author;
 
     public PostDTO() {
     }
 
-    public PostDTO(String title, String content, Author author) {
-        this.title = title;
-        this.content = content;
+    public PostDTO(String imageUrl, String description, Author author) {
+        this.imageUrl = imageUrl;
+        this.description = description;
         this.author = author;
     }
 
     public PostDTO(PostEntity post) {
-        this.title = post.getTitle();
-        this.content = post.getContent();
+        this.imageUrl = post.getImage();
+        this.description = post.getDescription();
         this.author = post.getAuthor();
     }
 
-    public String getTitle() {
-        return title;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
     public Author getAuthor() {
