@@ -2,27 +2,34 @@ package com.matheusdev.backendjava.dto;
 
 public class UpdateUserDTO {
 
-    private String fullName;
-    private String username;
+    private String name;
+    private String phoneNumber;
+    private String email;
 
     public UpdateUserDTO() {
     }
 
-    public UpdateUserDTO(String fullName, String username) {
-        this.fullName = fullName;
-        this.username = username;
+    public UpdateUserDTO(String name, String phoneNumber, String email) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public UpdateUserDTO(UserDTO user) {
-        this.fullName = user.getFullName();
-        this.username = user.getUsername();
+        this.name = user.getName();
+        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getEmail();
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

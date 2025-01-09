@@ -2,32 +2,35 @@ package com.matheusdev.backendjava.dto;
 
 import com.matheusdev.backendjava.entities.ProfileEntity;
 
-public class ResponseProfileDTO {
+public class ResponseUserProfileDTO {
 
     private String objectId;
     private String profileImage;
+    private String username;
+    private String bio;
     private Long followers;
     private Long following;
-    private String bio;
     private ResponseUserDTO user;
 
-    public ResponseProfileDTO() {
+    public ResponseUserProfileDTO() {
     }
 
-    public ResponseProfileDTO(String objectId, String profileImage, Long followers, Long following, String bio, ResponseUserDTO user) {
+    public ResponseUserProfileDTO(String objectId, String profileImage, String username, String bio, Long followers, Long following, ResponseUserDTO user) {
         this.objectId = objectId;
         this.profileImage = profileImage;
+        this.username = username;
+        this.bio = bio;
         this.followers = followers;
         this.following = following;
-        this.bio = bio;
         this.user = user;
     }
 
-    public ResponseProfileDTO(ProfileEntity entity) {
+    public ResponseUserProfileDTO(ProfileEntity entity) {
         this.objectId = entity.getObjectId();
         this.profileImage = entity.getProfileImage();
-        this.followers = entity.getFollowers();
-        this.following = entity.getFollowing();
+        this.username = entity.getUsername();
+        this.followers = entity.getFollowers().stream().count();
+        this.following = entity.getFollowing().stream().count();
         this.bio = entity.getBio();
         this.user = new ResponseUserDTO(entity.getUser());
     }
@@ -38,6 +41,10 @@ public class ResponseProfileDTO {
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public Long getFollowers() {

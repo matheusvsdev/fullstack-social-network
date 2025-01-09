@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class UserDTO {
 
-    private String fullName;
-    private String username;
+    private String name;
+    private String phoneNumber;
     private String email;
     private String password;
     private List<RoleDTO> roles = new ArrayList<>();
@@ -17,16 +17,16 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String fullName, String username, String email, String password) {
-        this.fullName = fullName;
-        this.username = username;
+    public UserDTO(String name, String phoneNumber, String email, String password) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
     }
 
     public UserDTO(UserEntity user) {
-        this.fullName = user.getFullName();
-        this.username = user.getUsername();
+        this.name = user.getName();
+        this.phoneNumber = user.getPhoneNumber();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.roles = user.getRoles().stream()
@@ -34,16 +34,16 @@ public class UserDTO {
                 .collect(Collectors.toList());
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getPassword() {
@@ -52,9 +52,5 @@ public class UserDTO {
 
     public List<RoleDTO> getRoles() {
         return roles;
-    }
-
-    public void setRoles(List<RoleDTO> roles) {
-        this.roles = roles;
     }
 }

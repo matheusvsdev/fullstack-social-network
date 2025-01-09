@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends MongoRepository<UserEntity, String> {
 
-    UserEntity findByUsername(String username);
+    UserEntity findByObjectId(String objectId);
 
-    @Query("{$and: [{username: ?0}, {$or: [{roles: {$elemMatch: {authority: 'ROLE_USER'}}}, " +
+    UserEntity findByEmail(String email);
+
+    @Query("{$and: [{email: ?0}, {$or: [{roles: {$elemMatch: {authority: 'ROLE_USER'}}}, " +
             "{roles: {$elemMatch: {authority: 'ROLE_ADMIN'}}}]}]}")
     UserEntity findByUsernameAndRoles(String username);
 }
