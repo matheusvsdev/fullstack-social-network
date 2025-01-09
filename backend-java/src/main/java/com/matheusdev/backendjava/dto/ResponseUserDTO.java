@@ -5,24 +5,24 @@ import com.matheusdev.backendjava.entities.UserEntity;
 public class ResponseUserDTO {
 
     private String objectId;
-    private String fullName;
-    private String username;
+    private String name;
+    private String phoneNumber;
     private String email;
 
     public ResponseUserDTO() {
     }
 
-    public ResponseUserDTO(String objectId, String fullName, String username, String email) {
+    public ResponseUserDTO(String objectId, String name, String phoneNumber, String email) {
         this.objectId = objectId;
-        this.fullName = fullName;
-        this.username = username;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
     public ResponseUserDTO(UserEntity user) {
         this.objectId = user.getObjectId();
-        this.fullName = user.getFullName();
-        this.username = user.getUsername();
+        this.name = user.getName();
+        this.phoneNumber = user.getPhoneNumber();
         this.email = user.getEmail();
     }
 
@@ -30,12 +30,12 @@ public class ResponseUserDTO {
         return objectId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getEmail() {

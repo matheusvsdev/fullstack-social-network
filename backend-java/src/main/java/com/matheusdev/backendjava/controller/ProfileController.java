@@ -1,7 +1,6 @@
 package com.matheusdev.backendjava.controller;
 
 import com.matheusdev.backendjava.dto.*;
-import com.matheusdev.backendjava.service.AuthService;
 import com.matheusdev.backendjava.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,9 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @Autowired
-    private AuthService authService;
-
     @PostMapping
-    public ResponseEntity<ResponseProfileDTO> save(@RequestBody UserDTO userDTO) {
-        ResponseProfileDTO profile = profileService.create(userDTO);
+    public ResponseEntity<ResponseUserProfileDTO> save(@RequestBody CreateUserProfileDTO createProfileDTO) {
+        ResponseUserProfileDTO profile = profileService.create(createProfileDTO);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{objectId}")
@@ -32,9 +28,15 @@ public class ProfileController {
         return ResponseEntity.created(uri).body(profile);
     }
 
+    @GetMapping(value = "/{objectId}")
+    public ResponseEntity<ResponseUserProfileDTO> findById(@PathVariable String objectId) {
+        ResponseUserProfileDTO profile = profileService.findById(objectId);
+        return ResponseEntity.ok(profile);
+    }
+
     @PutMapping(value = "/{objectId}")
-    public ResponseEntity<ResponseProfileDTO> update(@PathVariable String objectId, @RequestBody ProfileDTO profileDTO) {
-        ResponseProfileDTO profile = profileService.update(objectId, profileDTO);
+    public ResponseEntity<ResponseUserProfileDTO> update(@PathVariable String objectId, @RequestBody ProfileDTO profileDTO) {
+        ResponseUserProfileDTO profile = profileService.update(objectId, profileDTO);
         return ResponseEntity.ok().body(profile);
     }
 }

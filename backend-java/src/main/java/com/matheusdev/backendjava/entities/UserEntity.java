@@ -13,8 +13,8 @@ public class UserEntity implements UserDetails {
 
     @Id
     private String objectId;
-    private String fullName;
-    private String username;
+    private String name;
+    private String phoneNumber;
     private String email;
     private String password;
 
@@ -24,10 +24,10 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
-    public UserEntity(String objectId, String fullName, String username, String email, String password) {
+    public UserEntity(String objectId, String name, String phoneNumber, String email, String password) {
         this.objectId = objectId;
-        this.fullName = fullName;
-        this.username = username;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
     }
@@ -36,21 +36,20 @@ public class UserEntity implements UserDetails {
         return objectId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -96,6 +95,11 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override

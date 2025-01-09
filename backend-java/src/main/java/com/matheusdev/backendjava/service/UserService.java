@@ -1,5 +1,6 @@
 package com.matheusdev.backendjava.service;
 
+import com.matheusdev.backendjava.dto.CreateUserProfileDTO;
 import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.dto.RoleDTO;
 import com.matheusdev.backendjava.dto.UserDTO;
@@ -32,18 +33,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    public UserEntity insert(UserDTO userDTO) {
-        UserEntity user = new UserEntity();
-        user.setRoles(new ArrayList<>());
-        copyDtoToEntity(user, userDTO);
-
-        addUserRole(user, userDTO);
-
-        userRepository.save(user);
-
-        return user;
-    }
 
     @Transactional(readOnly = true)
     public List<ResponseUserDTO> findAll() {
@@ -81,27 +70,25 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public void addUserRole(UserEntity user, UserDTO userDTO) {
+    public UserEntity createUser(CreateUserProfileDTO dto) {
+        UserEntity user = new UserEntity();
+        user.setName(dto.getName());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setEmail(dto.getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-        user.getRoles().clear();
-        if (userDTO.getRoles() == null || userDTO.getRoles().isEmpty()) {
-            RoleEntity defaultRole = roleRepository.findByAuthority("ROLE_USER");
-            user.getRoles().add(defaultRole);
+        RoleEntity defaultRole = roleRepository.findByAuthority("ROLE_USER");
+        user.getRoles().add(defaultRole);
 
-        } else {
-            for (RoleDTO roleDTO : userDTO.getRoles()) {
-                RoleEntity role = roleRepository.findByAuthority(roleDTO.getAuthority());
-                if (role != null) {
-                    user.getRoles().add(role);
-                }
-            }
-        }
+        userRepository.save(user);
+
+        return user;
     }
 
-    public void copyDtoToEntity(UserEntity entity, UserDTO userDTO) {
-        entity.setFullName(userDTO.getFullName());
-        entity.setUsername(userDTO.getUsername());
-        entity.setEmail(userDTO.getEmail());
-        entity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    public void copyDtoToEntity(UserEntity entity, UserDTO dto) {
+        entity.setName(dto.getName());
+        entity.setPhoneNumber(dto.getPhoneNumber());
+        entity.setEmail(dto.getEmail());
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
 }

@@ -1,10 +1,9 @@
 package com.matheusdev.backendjava.controller;
 
-import com.matheusdev.backendjava.dto.ResponseUserDTO;
-import com.matheusdev.backendjava.dto.UserDTO;
+import com.matheusdev.backendjava.dto.*;
+import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.service.AuthService;
 import com.matheusdev.backendjava.service.UpdateOwnUserService;
-import com.matheusdev.backendjava.dto.UpdateUserDTO;
 import com.matheusdev.backendjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,14 +50,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/me")
-    public ResponseEntity<ResponseUserDTO> findMe() {
-        ResponseUserDTO userDTO = authService.getMe();
+    public ResponseEntity<ResponseUserProfileDTO> findMe() {
+        ResponseUserProfileDTO userDTO = authService.getMe();
         return ResponseEntity.ok(userDTO);
     }
 
     @PutMapping(value = "/me")
-    public ResponseEntity<ResponseUserDTO> updateSelf(@RequestBody UpdateUserDTO dto) {
-        ResponseUserDTO newDto = updateOwnUserService.updateSelf(dto);
+    public ResponseEntity<ResponseUserProfileDTO> updateSelf(@RequestBody UpdateUserProfileDTO dto) {
+        ResponseUserProfileDTO newDto = updateOwnUserService.updateSelf(dto);
         return ResponseEntity.ok().body(newDto);
     }
 }

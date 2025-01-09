@@ -4,17 +4,24 @@ import java.time.Instant;
 
 public class Comment {
 
+    private String author;
     private String text;
     private Instant createdAt;
-
-    private Author author;
 
     public Comment() {
     }
 
-    public Comment(String text, Instant createdAt, Author author) {
+    public Comment(String author, String text, Instant createdAt) {
+        this.author = author;
         this.text = text;
         this.createdAt = createdAt;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -32,13 +39,5 @@ public class Comment {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 }
