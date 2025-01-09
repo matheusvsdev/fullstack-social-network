@@ -1,19 +1,26 @@
 import "./EditProfile.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Hooks
 import { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 
 // Biblioteca axios
 import axios from "axios";
 
 const EditProfile = () => {
-  const [fullName, setFullName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [userProfile, setUserProfile] = useState({
+    profileImage: "",
+    name: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+  });
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+
+  const defaultProfileImage =
+    "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"; // Substitua pelo URL da sua imagem padrão
 
   // Load user data
   useEffect(() => {
@@ -25,10 +32,14 @@ const EditProfile = () => {
         },
       })
       .then((response) => {
-        const user = response.data;
-        setFullName(user.fullName);
-        setUsername(user.username);
-        setEmail(user.email);
+        const userData = response.data;
+        setUserProfile({
+          profileImage: userData.profileImage || defaultProfileImage,
+          name: userData.user?.name || "",
+          username: userData.username || "",
+          email: userData.user?.email || "",
+          phoneNumber: userData.user?.phoneNumber || "",
+        });
       })
       .catch((error) => {
         setError(error.message);
@@ -38,23 +49,17 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Gather user data from states
-    const userData = {
-      fullName,
-      username,
-    };
-
     const token = localStorage.getItem("token");
 
     await axios
-      .put("http://localhost:8080/users/me", userData, {
+      .put("http://localhost:8080/users/me", userProfile, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setMessage("Perfil atualizado com sucesso!");
       })
       .catch((error) => {
@@ -62,36 +67,86 @@ const EditProfile = () => {
       });
   };
 
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setUserProfile((prevProfile) => ({
+        ...prevProfile,
+        profileImage: reader.result,
+      }));
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
   return (
     <div id="edit-profile">
       <h2>Edite seus dados</h2>
       <form onSubmit={handleSubmit}>
+        <div className="profile-picture">
+          <img
+            src={userProfile.profileImage || defaultProfileImage}
+            alt="Profile"
+            className="circular-image"
+          />
+          <label htmlFor="file-upload" className="custom-file-upload">
+            <i className="fas fa-pencil-alt"></i>
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleProfilePictureChange}
+          />
+        </div>
         <label>
           <span>Nome:</span>
           <input
             type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder={fullName || "Nome"}
+            name="name"
+            defaultValue={userProfile.name}
+            onChange={handleChange}
+            placeholder="Nome"
           />
         </label>
         <label>
           <span>Nome de usuário:</span>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder={username || "Username"}
+            name="username"
+            defaultValue={userProfile.username}
+            onChange={handleChange}
+            placeholder="Nome de usuário"
           />
         </label>
         <label>
           <span>Email:</span>
           <input
             type="email"
-            value={email}
-            disabled
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={email || "Email"}
+            name="email"
+            defaultValue={userProfile.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+        </label>
+        <label>
+          <span>Número de telefone:</span>
+          <input
+            type="tel"
+            name="phoneNumber"
+            defaultValue={userProfile.phoneNumber}
+            onChange={handleChange}
+            placeholder="Número de telefone"
           />
         </label>
         <label>

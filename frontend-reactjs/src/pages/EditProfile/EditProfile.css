@@ -1,13 +1,13 @@
 #edit-profile {
-  position: absolute;  
-  top: 45%;  
-  left: 50%;  
-  transform: translate(-50%, -50%);  
-  border: 1px solid #d3d3d3;  
-  background-color: #ffff;  
-  padding: 1.5em 2em;  
-  max-width: 23%;  
-  margin: 0 auto;  
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #d3d3d3;
+  background-color: #ffff;
+  padding: 1.5em 2em;
+  max-width: 23%;
+  margin: 0 auto;
 }
 
 #edit-profile h2 {
@@ -32,4 +32,32 @@
 #edit-profile p a {
   font-weight: bold;
   color: #0b50d1;
+}
+
+.profile-picture {
+  position: relative;
+  display: inline-block;
+}
+
+.circular-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.custom-file-upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+.custom-file-upload .fas {
+  font-size: 20px;
+}
+#file-upload {
+  display: none;
 }

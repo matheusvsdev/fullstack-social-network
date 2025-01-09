@@ -14,7 +14,7 @@ const clientId = "myclientid";
 const clientSecret = "myclientsecret";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
@@ -23,7 +23,7 @@ const Login = () => {
 
     const params = new URLSearchParams();
     params.append("grant_type", "password");
-    params.append("username", username);
+    params.append("username", email);
     params.append("password", password);
 
     axios({
@@ -60,9 +60,9 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nome de usuário"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"

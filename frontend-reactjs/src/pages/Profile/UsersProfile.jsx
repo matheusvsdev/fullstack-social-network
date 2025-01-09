@@ -1,13 +1,10 @@
 import "./Profile.css";
-
-// Hooks
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-// Biblioteca axios
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const Profile = () => {
+const UserProfile = () => {
+  const { objectId } = useParams();
   const [userProfile, setUserProfile] = useState({});
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -19,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:8080/users/me", {
+      .get(`http://localhost:8080/profiles/${objectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -32,13 +29,13 @@ const Profile = () => {
       .catch((error) => {
         setError(error.message);
       });
-  }, []);
+  }, [objectId]);
 
   // Load posts
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:8080/post/me", {
+      .get(`http://localhost:8080/posts/${objectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +47,7 @@ const Profile = () => {
       .catch((error) => {
         setError(error.message);
       });
-  }, []);
+  }, [objectId]);
 
   return (
     <div id="profile">
@@ -82,11 +79,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="actions">
-        <Link to="/edit-profile">
-          <button>Editar Perfil</button>
-        </Link>
-      </div>
       <div className="photos-container">
         {posts.map((post) => (
           <div key={post.id} className="photo">
@@ -99,4 +91,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;

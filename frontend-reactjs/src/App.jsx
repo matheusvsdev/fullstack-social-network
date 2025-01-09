@@ -1,11 +1,12 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Profile from "./pages/Profile/Profile";
+import UserProfile from "./pages/Profile/UsersProfile";
 import EditProfile from "./pages/EditProfile/EditProfile";
 
 // Components
@@ -24,6 +25,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/profiles/:objectId" element={<UserProfile />} /> {/* Outras rotas */}
               <Route path="/edit-profile" element={<EditProfile />} />
             </Routes>
           </div>

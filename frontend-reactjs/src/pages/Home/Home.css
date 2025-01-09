@@ -1,0 +1,126 @@
+.feed-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.feed-container h2 {
+  margin-top: 0;
+}
+
+.posts {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.post {
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px; /* Certifique-se de que o border-radius seja consistente */
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-image {
+  width: 55px;
+  height: auto; /* Certifique-se de que a altura seja igual à largura */
+  padding: 1px;
+  border-radius: 50px;
+  margin-left: 10px;
+  object-position: center;
+}
+
+.post-header .username {
+  font-weight: bold;
+  padding-left: 10px;
+  margin-right: 620px; /* Espaçamento adequado entre a imagem e o nome de usuário */
+}
+
+.username {
+  color: black; /* Define a cor do texto como preto */
+  font-weight: bolder; /* Defina o peso da fonte como negrito, se desejar */
+}
+
+
+.post-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 80px; /* Adicione isso para garantir que todas as bordas tenham o mesmo raio */
+  margin-bottom: 10px;
+}
+
+.post-caption {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.comment-container {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.comment-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-text {
+  margin: 0 10px;
+  font-weight: 400;
+  color: rgb(50, 50, 50);
+}
+
+.comment-time {
+  font-size: 0.8em;
+  color: gray;
+  margin-left: auto;
+}
+
+.comments-toggle {
+  color: #888;
+  cursor: pointer;
+  text-align: left;
+}
+
+.comments-list {
+  display: none;
+  text-align: left;
+}
+
+.comments-list.active {
+  display: block;
+}

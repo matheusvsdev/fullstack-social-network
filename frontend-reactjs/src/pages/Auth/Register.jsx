@@ -11,8 +11,9 @@ import { useState } from "react";
 import axios from "axios";
 
 const Register = () => {
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -21,8 +22,9 @@ const Register = () => {
     e.preventDefault();
 
     const user = {
-      fullName: fullName,
+      name: name,
       username: username,
+      phoneNumber: phoneNumber,
       email: email,
       password: password,
     };
@@ -33,7 +35,7 @@ const Register = () => {
         console.log(response.data);
         const params = new URLSearchParams();
         params.append("grant_type", "password");
-        params.append("username", user.username);
+        params.append("username", user.email);
         params.append("password", user.password);
 
         axios({
@@ -52,7 +54,7 @@ const Register = () => {
               axios.defaults.headers.common[
                 "Authorization"
               ] = `Bearer ${token}`;
-              window.location.href = "/home"; // Redireciona para a página de home e recarrega
+              window.location.href = "/"; // Redireciona para a página de home e recarrega
             } else {
               setError("Erro ao fazer login");
             }
@@ -75,14 +77,20 @@ const Register = () => {
         <input
           type="text"
           placeholder="Nome Completo"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           placeholder="Nome de usuário"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="phone"
+          placeholder="Número de celular"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <input
           type="email"
