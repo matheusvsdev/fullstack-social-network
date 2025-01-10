@@ -6,14 +6,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "profiles")
 public class ProfileEntity {
 
     @Id
     private String objectId;
-    private String username;
     private String profileImage;
+    private String username;
     private String bio;
 
     @DBRef
@@ -31,10 +32,10 @@ public class ProfileEntity {
     public ProfileEntity() {
     }
 
-    public ProfileEntity(String objectId, String username, String profileImage, String bio, UserEntity user) {
+    public ProfileEntity(String objectId, String profileImage, String username, String bio, UserEntity user) {
         this.objectId = objectId;
-        this.username = username;
         this.profileImage = profileImage;
+        this.username = username;
         this.bio = bio;
         this.user = user;
     }
@@ -43,8 +44,16 @@ public class ProfileEntity {
         return objectId;
     }
 
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
     public String getProfileImage() {
         return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getUsername() {
@@ -53,10 +62,6 @@ public class ProfileEntity {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
     }
 
     public String getBio() {
@@ -85,5 +90,18 @@ public class ProfileEntity {
 
     public List<PostEntity> getPosts() {
         return posts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProfileEntity profile = (ProfileEntity) o;
+        return Objects.equals(objectId, profile.objectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(objectId);
     }
 }

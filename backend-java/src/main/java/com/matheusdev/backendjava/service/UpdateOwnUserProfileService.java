@@ -1,7 +1,6 @@
 package com.matheusdev.backendjava.service;
 
 import com.matheusdev.backendjava.dto.*;
-import com.matheusdev.backendjava.embedded.Author;
 import com.matheusdev.backendjava.entities.PostEntity;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UpdateOwnUserService {
+public class UpdateOwnUserProfileService {
 
     @Autowired
     private AuthService authService;
@@ -31,24 +30,26 @@ public class UpdateOwnUserService {
 
     @Transactional
     public ResponseUserProfileDTO updateSelf(UpdateUserProfileDTO dto) {
-        UserEntity user = authService.authenticated();
-        user.setName(dto.getName());
-        user.setPhoneNumber(dto.getPhoneNumber());
-        user.setEmail(dto.getEmail());
-
-        userRepository.save(user);
+        UserEntity user = updateUserSelf(dto);
 
         ProfileEntity profile = profileRepository.findByUser(user);
         profile.setProfileImage(dto.getProfileImage());
         profile.setUsername(dto.getUsername());
         profile.setUser(user);
-
         profileRepository.save(profile);
 
         // Atualizar os posts associados
         updateAuthorInPosts(profile);
 
         return new ResponseUserProfileDTO(profile);
+    }
+
+    private UserEntity updateUserSelf(UpdateUserProfileDTO dto) {
+        UserEntity user = authService.authenticated();
+        user.setName(dto.getName());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setEmail(dto.getEmail());
+        return userRepository.save(user);
     }
 
     public void updateAuthorInPosts(ProfileEntity profileEntity) {

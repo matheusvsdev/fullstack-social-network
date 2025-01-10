@@ -8,16 +8,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "posts")
 public class PostEntity {
 
     @Id
     private String objectId;
-    private Instant createdAt;
     private String imageUrl;
     private String caption;
-
+    private Instant createdAt;
     private Author author;
 
     private List<Comment> comments = new ArrayList<>();
@@ -25,11 +25,11 @@ public class PostEntity {
     public PostEntity() {
     }
 
-    public PostEntity(String objectId, Instant createdAt, String imageUrl, String caption, Author author) {
+    public PostEntity(String objectId, String imageUrl, String caption, Instant createdAt, Author author) {
         this.objectId = objectId;
-        this.createdAt = createdAt;
         this.imageUrl = imageUrl;
         this.caption = caption;
+        this.createdAt = createdAt;
         this.author = author;
     }
 
@@ -39,14 +39,6 @@ public class PostEntity {
 
     public void setObjectId(String objectId) {
         this.objectId = objectId;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String getImageUrl() {
@@ -65,6 +57,14 @@ public class PostEntity {
         this.caption = caption;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Author getAuthor() {
         return author;
     }
@@ -75,5 +75,18 @@ public class PostEntity {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PostEntity that = (PostEntity) o;
+        return Objects.equals(objectId, that.objectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(objectId);
     }
 }

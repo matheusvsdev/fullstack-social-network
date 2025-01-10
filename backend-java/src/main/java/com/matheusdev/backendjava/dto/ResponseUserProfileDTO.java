@@ -29,8 +29,8 @@ public class ResponseUserProfileDTO {
         this.objectId = entity.getObjectId();
         this.profileImage = entity.getProfileImage();
         this.username = entity.getUsername();
-        this.followers = entity.getFollowers().stream().count();
-        this.following = entity.getFollowing().stream().count();
+        this.followers = (long) entity.getFollowers().size();
+        this.following = (long) entity.getFollowing().size();
         this.bio = entity.getBio();
         this.user = new ResponseUserDTO(entity.getUser());
     }

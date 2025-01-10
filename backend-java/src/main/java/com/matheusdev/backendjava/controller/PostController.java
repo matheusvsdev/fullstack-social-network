@@ -1,7 +1,6 @@
 package com.matheusdev.backendjava.controller;
 
 import com.matheusdev.backendjava.dto.PostDTO;
-import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.entities.PostEntity;
 import com.matheusdev.backendjava.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,12 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostDTO>> findAll() {
         List<PostDTO> posts = postService.findAll();
+        return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping(value = "/following")
+    public ResponseEntity<List<PostDTO>> getPostsByFollowing() {
+        List<PostDTO> posts = postService.findPostsByFollowing();
         return ResponseEntity.ok().body(posts);
     }
 }

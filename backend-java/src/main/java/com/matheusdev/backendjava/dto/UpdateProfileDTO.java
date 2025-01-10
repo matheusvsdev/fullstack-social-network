@@ -2,33 +2,33 @@ package com.matheusdev.backendjava.dto;
 
 import com.matheusdev.backendjava.entities.ProfileEntity;
 
-public class ProfileDTO {
+public class UpdateProfileDTO {
 
-    private String username;
     private String profileImage;
+    private String username;
     private String bio;
 
-    public ProfileDTO() {
+    public UpdateProfileDTO() {
     }
 
-    public ProfileDTO(String username, String profileImage, String bio) {
-        this.username = username;
+    public UpdateProfileDTO(String profileImage, String username, String bio) {
         this.profileImage = profileImage;
+        this.username = username;
         this.bio = bio;
     }
 
-    public ProfileDTO(ProfileEntity entity) {
-        this.username = entity.getUsername();
+    public UpdateProfileDTO(ProfileEntity entity) {
         this.profileImage = entity.getProfileImage();
+        this.username = entity.getUsername();
         this.bio = entity.getBio();
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getBio() {
