@@ -1,17 +1,25 @@
 import "./Home.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [showComments, setShowComments] = useState({});
+  const navigate = useNavigate(); // Adicione esta linha
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Se o token não estiver presente, redirecione para a página de registro
+      navigate("/register");
+      return;
+    }
+
     axios
-      .get("http://localhost:8080/post", {
+      .get("http://localhost:8080/post/following", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -34,7 +42,7 @@ const Home = () => {
       .catch((error) => {
         setError(error.message);
       });
-  }, []);
+  }, [navigate]);
 
   const toggleComments = (postId) => {
     setShowComments((prev) => ({
@@ -78,7 +86,9 @@ const Home = () => {
                 className="comments-toggle"
                 onClick={() => toggleComments(post.id)}
               >
-                {showComments[post.id] ? "Ocultar Comentários" : "Comentários"}
+                {showComments[post.id]
+                  ? "Ocultar comentários"
+                  : "Ver comentários"}
               </p>
               <div
                 className={`comments-list ${
