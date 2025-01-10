@@ -52,7 +52,7 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     await axios
-      .put("http://localhost:8080/users/me", userProfile, {
+      .put("http://localhost:8080/profiles/me", userProfile, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

@@ -1,12 +1,15 @@
+/* EditProfile.css */
 #edit-profile {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid #d3d3d3;
+  position: relative; /* Posicionamento relativo ao contêiner pai */
+  top: 30px; /* Remover o top absoluto */
+  left: 0; /* Remover o left absoluto */
+  transform: none; /* Remover o transform */
+  border: 0.5px solid #d3d3d3;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #ffff;
   padding: 1.5em 2em;
-  max-width: 23%;
+  max-width: 20%;
   margin: 0 auto;
 }
 
@@ -55,9 +58,11 @@
   padding: 10px;
   cursor: pointer;
 }
+
 .custom-file-upload .fas {
   font-size: 20px;
 }
+
 #file-upload {
   display: none;
 }

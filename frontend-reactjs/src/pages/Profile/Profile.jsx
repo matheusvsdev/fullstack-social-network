@@ -1,10 +1,6 @@
 import "./Profile.css";
-
-// Hooks
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-// Biblioteca axios
 import axios from "axios";
 
 const Profile = () => {
@@ -68,11 +64,15 @@ const Profile = () => {
             <div className="stats">
               <div>
                 <span>{userProfile.followers}</span>
-                <p>Seguidores</p>
+                <p>
+                  <Link to={`/followers`}>Seguidores</Link>
+                </p>
               </div>
               <div>
                 <span>{userProfile.following}</span>
-                <p>Seguindo</p>
+                <p>
+                  <Link to={`/following`}>Seguindo</Link>
+                </p>
               </div>
             </div>
           </div>
@@ -80,12 +80,12 @@ const Profile = () => {
             <span className="name">{userProfile.user?.name}</span>
             <p className="bio">{userProfile.bio}</p>
           </div>
+          <div className="actions">
+            <Link to="/edit-profile">
+              <button>Editar Perfil</button>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="actions">
-        <Link to="/edit-profile">
-          <button>Editar Perfil</button>
-        </Link>
       </div>
       <div className="photos-container">
         {posts.map((post) => (

@@ -1,9 +1,12 @@
 package com.matheusdev.backendjava.embedded;
 
+import com.matheusdev.backendjava.entities.ProfileEntity;
+
 import java.time.Instant;
 
 public class Comment {
 
+    private String objectId;
     private String author;
     private String text;
     private Instant createdAt;
@@ -11,10 +14,22 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String author, String text, Instant createdAt) {
+    public Comment(String objectId, String author, String text, Instant createdAt) {
+        this.objectId = objectId;
         this.author = author;
         this.text = text;
         this.createdAt = createdAt;
+    }
+
+    public Comment(ProfileEntity profileEntity) {
+        this.objectId = profileEntity.getObjectId();
+        this.author = profileEntity.getUsername();
+        this.text = getText();
+        this.createdAt = Instant.now();
+    }
+
+    public String getObjectId() {
+        return objectId;
     }
 
     public String getAuthor() {

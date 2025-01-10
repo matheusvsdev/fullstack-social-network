@@ -6,6 +6,8 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Profile from "./pages/Profile/Profile";
+import Followers from "./pages/Follow/Followers";
+import Following from "./pages/Follow/Following";
 import UserProfile from "./pages/Profile/UsersProfile";
 import EditProfile from "./pages/EditProfile/EditProfile";
 
@@ -22,10 +24,16 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/profiles/:objectId" element={<UserProfile />} /> {/* Outras rotas */}
+              <Route path="/followers" element={<Followers />} />
+              <Route path="/following" element={<Following />} />
+              <Route
+                path="/profiles/:objectId"
+                element={<UserProfile />}
+              />{" "}
+              {/* Outras rotas */}
               <Route path="/edit-profile" element={<EditProfile />} />
             </Routes>
           </div>

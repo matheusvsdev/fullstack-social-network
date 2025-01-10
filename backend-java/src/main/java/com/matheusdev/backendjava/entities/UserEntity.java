@@ -90,6 +90,19 @@ public class UserEntity implements UserDetails {
         return false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserEntity that = (UserEntity) o;
+        return Objects.equals(objectId, that.objectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(objectId);
+    }
+
     // Métodos da interface UserDetails
 
     @Override

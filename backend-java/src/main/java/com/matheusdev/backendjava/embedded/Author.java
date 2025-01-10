@@ -2,6 +2,8 @@ package com.matheusdev.backendjava.embedded;
 
 import com.matheusdev.backendjava.entities.ProfileEntity;
 
+import java.util.Objects;
+
 public class Author {
 
     private String objectId;
@@ -48,5 +50,18 @@ public class Author {
             this.imageProfile = profileEntity.getProfileImage();
             this.username = profileEntity.getUsername();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+        return Objects.equals(objectId, author.objectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(objectId);
     }
 }

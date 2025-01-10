@@ -1,6 +1,5 @@
 package com.matheusdev.backendjava.service;
 
-import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.dto.ResponseUserProfileDTO;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
@@ -30,6 +29,13 @@ public class AuthService {
 		return userRepository.findByEmail(username);
 	}
 
+	@Transactional(readOnly = true)
+	public ResponseUserProfileDTO getMe() {
+		UserEntity user = authenticated();
+		ProfileEntity profile = profileRepository.findByUser(user);
+		return new ResponseUserProfileDTO(profile);
+	}
+
 	public void validateSelfOrAdmin(String objectId) {
 		UserEntity me = authenticated();
 		if (me.hasRole("ROLE_ADMIN")) {
@@ -40,10 +46,5 @@ public class AuthService {
 		}
 	}
 
-	@Transactional(readOnly = true)
-	public ResponseUserProfileDTO getMe() {
-		UserEntity user = authenticated();
-		ProfileEntity profile = profileRepository.findByUser(user);
-		return new ResponseUserProfileDTO(profile);
-	}
+
 }

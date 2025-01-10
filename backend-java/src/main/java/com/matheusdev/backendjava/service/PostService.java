@@ -1,13 +1,14 @@
 package com.matheusdev.backendjava.service;
 
 import com.matheusdev.backendjava.dto.PostDTO;
-import com.matheusdev.backendjava.dto.ResponseUserDTO;
 import com.matheusdev.backendjava.embedded.Author;
 import com.matheusdev.backendjava.entities.PostEntity;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.repository.PostRepository;
 import com.matheusdev.backendjava.repository.ProfileRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class PostService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
     private PostRepository postRepository;
@@ -43,6 +46,7 @@ public class PostService {
         post.setCaption(postDTO.getCaption());
         post.setCreatedAt(Instant.now());
         post.setAuthor(author);
+
         return postRepository.save(post);
     }
 
@@ -50,5 +54,20 @@ public class PostService {
     public List<PostDTO> findAll() {
         List<PostEntity> users = postRepository.findAll();
         return users.stream().map(PostDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostDTO> findPostsByFollowing() {
+        UserEntity user = authService.authenticated();
+
+        ProfileEntity profile = profileRepository.findByUser(user);
+
+        List<String> followingIds = profile.getFollowing().stream().map(ProfileEntity::getObjectId).collect(Collectors.toList());
+        logger.info("Following Profile IDs: {}", followingIds);
+
+        List<PostEntity> posts = postRepository.findPostsByProfileFollowing(followingIds);
+        logger.info("Posts found: {}", posts);
+
+        return posts.stream().map(PostDTO::new).collect(Collectors.toList());
     }
 }
