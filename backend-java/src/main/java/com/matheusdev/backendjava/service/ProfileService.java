@@ -45,6 +45,9 @@ public class ProfileService {
 
     @Transactional(readOnly = true)
     public Page<ResponseUserProfileDTO> searchProfilesByUsername(String username, Pageable pageable) {
+        if (username == null || username.trim().isEmpty()) {
+            return Page.empty(pageable);
+        }
         return profileRepository.findByUsername(username, pageable).map(ResponseUserProfileDTO::new);
     }
 }

@@ -7,6 +7,8 @@ import com.matheusdev.backendjava.entities.FollowRequest;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.entities.enums.FollowStatus;
+import com.matheusdev.backendjava.exceptions.ArgumentAlreadyExistsException;
+import com.matheusdev.backendjava.exceptions.ResourceNotFoundException;
 import com.matheusdev.backendjava.repository.FollowRequestRepository;
 import com.matheusdev.backendjava.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,12 @@ public class FollowService {
 
     public void sendFollowRequest(String objectId) {
         ProfileEntity userProfile = getAuthenticatedUserProfile();
-        ProfileEntity followUser = profileRepository.findByObjectId(objectId);
+        ProfileEntity followUser = profileRepository.findById(objectId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         FollowStatus followStatus = isFollowing(followUser.getObjectId());
-        if (followStatus == FollowStatus.ACCEPTED) {
-            throw new RuntimeException("Você já está seguindo este usuário.");
+        if (followStatus == FollowStatus.ACCEPTED || FollowStatus.PENDING == followStatus) {
+            throw new ArgumentAlreadyExistsException("You have already sent the request or are following this user.");
         }
         FollowRequest followRequest = new FollowRequest();
         followRequest.setRequester(userProfile);
@@ -72,7 +75,9 @@ public class FollowService {
 
     public void unfollowUser(String objectId) {
         ProfileEntity userProfile = getAuthenticatedUserProfile();
-        ProfileEntity followUser = profileRepository.findByObjectId(objectId);
+
+        ProfileEntity followUser = profileRepository.findById(objectId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         userProfile.getFollowing().remove(followUser);
         followUser.getFollowers().remove(userProfile);
@@ -83,7 +88,8 @@ public class FollowService {
 
     public FollowStatus isFollowing(String objectId) {
         ProfileEntity userProfile = getAuthenticatedUserProfile();
-        ProfileEntity followUser = profileRepository.findByObjectId(objectId);
+        ProfileEntity followUser = profileRepository.findById(objectId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (userProfile.getFollowing().contains(followUser)) {
             return FollowStatus.ACCEPTED;
@@ -99,7 +105,7 @@ public class FollowService {
 
     public void acceptFollowRequest(String requestId) {
         FollowRequest followRequest = followRequestRepository.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Solicitação não encontrada"));
         followRequest.setState(FollowStatus.ACCEPTED);
         ProfileEntity userProfile = followRequest.getRequester();
         ProfileEntity followUser = followRequest.getRequested();
@@ -112,7 +118,7 @@ public class FollowService {
 
     public void rejectFollowRequest(String requestId) {
         FollowRequest followRequest = followRequestRepository.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Solicitação não encontrada"));
         followRequestRepository.delete(followRequest);
     }
 }

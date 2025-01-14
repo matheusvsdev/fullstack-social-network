@@ -8,6 +8,7 @@ import java.util.List;
 
 public class PostDTO {
 
+    private String objectId;
     private String imageUrl;
     private String caption;
     private Author author;
@@ -16,17 +17,23 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(String imageUrl, String caption, Author author) {
+    public PostDTO(String objectId, String imageUrl, String caption, Author author) {
+        this.objectId = objectId;
         this.imageUrl = imageUrl;
         this.caption = caption;
         this.author = author;
     }
 
     public PostDTO(PostEntity post) {
+        this.objectId = post.getObjectId();
         this.imageUrl = post.getImageUrl();
         this.caption = post.getCaption();
         this.author = post.getAuthor();
         this.comments = post.getComments();
+    }
+
+    public String getObjectId() {
+        return objectId;
     }
 
     public String getImageUrl() {

@@ -3,6 +3,7 @@ package com.matheusdev.backendjava.controller;
 import com.matheusdev.backendjava.dto.*;
 import com.matheusdev.backendjava.service.ProfileService;
 import com.matheusdev.backendjava.service.UpdateOwnUserProfileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class ProfileController {
     private UpdateOwnUserProfileService updateOwnUserProfileService;
 
     @PostMapping
-    public ResponseEntity<ResponseUserProfileDTO> create(@RequestBody CreateUserProfileDTO createProfileDTO) {
+    public ResponseEntity<ResponseUserProfileDTO> create(@Valid @RequestBody CreateUserProfileDTO createProfileDTO) {
         ResponseUserProfileDTO profile = profileService.create(createProfileDTO);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
