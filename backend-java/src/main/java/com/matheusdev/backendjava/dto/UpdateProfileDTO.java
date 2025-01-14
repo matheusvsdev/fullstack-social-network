@@ -1,11 +1,17 @@
 package com.matheusdev.backendjava.dto;
 
 import com.matheusdev.backendjava.entities.ProfileEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class UpdateProfileDTO {
 
     private String profileImage;
+
+    @NotBlank(message = "Required field")
+    @Size(min = 3, message = "Minimum 3 characters")
     private String username;
+
     private String bio;
 
     public UpdateProfileDTO() {

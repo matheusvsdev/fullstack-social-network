@@ -1,13 +1,30 @@
 package com.matheusdev.backendjava.dto;
 
 import com.matheusdev.backendjava.entities.ProfileEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class CreateUserProfileDTO {
 
+    @NotBlank(message = "Required field")
+    @Size(min = 3, message = "Minimum 3 characters")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$", message = "The name must contain only letters")
     private String name;
+
+    @NotBlank(message = "Required field")
+    @Size(min = 3, message = "Minimum 3 characters")
     private String username;
+
     private String phoneNumber;
+
+    @NotBlank(message = "Required field")
+    @Pattern(regexp = ".+@.+\\..+", message = "Email must have a valid domain")
     private String email;
+
+    @NotBlank(message = "Required field")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+            , message = "Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, and one number")
     private String password;
 
     public CreateUserProfileDTO() {

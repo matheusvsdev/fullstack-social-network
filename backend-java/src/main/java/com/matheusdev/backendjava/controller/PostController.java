@@ -1,6 +1,7 @@
 package com.matheusdev.backendjava.controller;
 
 import com.matheusdev.backendjava.dto.PostDTO;
+import com.matheusdev.backendjava.embedded.Comment;
 import com.matheusdev.backendjava.entities.PostEntity;
 import com.matheusdev.backendjava.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,23 @@ public class PostController {
     public ResponseEntity<List<PostDTO>> getPostsByFollowing() {
         List<PostDTO> posts = postService.findPostsByFollowing();
         return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping(value = "/own-posts")
+    public ResponseEntity<List<PostDTO>> getOwnPosts() {
+        List<PostDTO> posts = postService.findOwnPosts();
+        return ResponseEntity.ok().body(posts);
+    }
+
+    @GetMapping(value = "/profile-posts/{objectId}")
+    public ResponseEntity<List<PostDTO>> getProfilePosts(@PathVariable String objectId) {
+        List<PostDTO> profilePosts = postService.findProfilePosts(objectId);
+        return ResponseEntity.ok().body(profilePosts);
+    }
+
+    @PostMapping(value = "/comment/{objectId}")
+    public ResponseEntity<Comment> createComment(@PathVariable String objectId, @RequestBody Comment comment) {
+        Comment createdPost = postService.createComment(objectId, comment);
+        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }
 }
