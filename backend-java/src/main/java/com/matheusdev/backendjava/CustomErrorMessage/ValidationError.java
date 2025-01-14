@@ -1,4 +1,4 @@
-package com.matheusdev.backendjava.dto;
+package com.matheusdev.backendjava.CustomErrorMessage;
 
 import java.time.Instant;
 import java.util.ArrayList;

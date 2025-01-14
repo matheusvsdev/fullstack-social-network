@@ -2,19 +2,15 @@ package com.matheusdev.backendjava.service;
 
 import com.matheusdev.backendjava.dto.FollowersDTO;
 import com.matheusdev.backendjava.dto.ResponseFollowRequestDTO;
-import com.matheusdev.backendjava.dto.ResponseUserProfileDTO;
 import com.matheusdev.backendjava.entities.FollowRequest;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
 import com.matheusdev.backendjava.entities.enums.FollowStatus;
-import com.matheusdev.backendjava.exceptions.ArgumentAlreadyExistsException;
-import com.matheusdev.backendjava.exceptions.ResourceNotFoundException;
+import com.matheusdev.backendjava.service.exceptions.ArgumentAlreadyExistsException;
+import com.matheusdev.backendjava.service.exceptions.ResourceNotFoundException;
 import com.matheusdev.backendjava.repository.FollowRequestRepository;
 import com.matheusdev.backendjava.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

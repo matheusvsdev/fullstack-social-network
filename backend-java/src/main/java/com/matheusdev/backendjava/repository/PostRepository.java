@@ -1,8 +1,6 @@
 package com.matheusdev.backendjava.repository;
 
-import com.matheusdev.backendjava.embedded.Author;
 import com.matheusdev.backendjava.entities.PostEntity;
-import com.matheusdev.backendjava.entities.ProfileEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

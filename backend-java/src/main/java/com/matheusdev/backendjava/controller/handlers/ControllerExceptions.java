@@ -1,9 +1,9 @@
 package com.matheusdev.backendjava.controller.handlers;
 
-import com.matheusdev.backendjava.dto.CustomError;
-import com.matheusdev.backendjava.dto.ValidationError;
-import com.matheusdev.backendjava.exceptions.ArgumentAlreadyExistsException;
-import com.matheusdev.backendjava.exceptions.ResourceNotFoundException;
+import com.matheusdev.backendjava.CustomErrorMessage.CustomError;
+import com.matheusdev.backendjava.CustomErrorMessage.ValidationError;
+import com.matheusdev.backendjava.service.exceptions.ArgumentAlreadyExistsException;
+import com.matheusdev.backendjava.service.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

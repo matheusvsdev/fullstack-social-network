@@ -1,4 +1,4 @@
-package com.matheusdev.backendjava.exceptions;
+package com.matheusdev.backendjava.service.exceptions;
 
 public class ArgumentAlreadyExistsException extends RuntimeException {
 

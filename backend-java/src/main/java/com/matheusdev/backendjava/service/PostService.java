@@ -6,7 +6,7 @@ import com.matheusdev.backendjava.embedded.Comment;
 import com.matheusdev.backendjava.entities.PostEntity;
 import com.matheusdev.backendjava.entities.ProfileEntity;
 import com.matheusdev.backendjava.entities.UserEntity;
-import com.matheusdev.backendjava.exceptions.ResourceNotFoundException;
+import com.matheusdev.backendjava.service.exceptions.ResourceNotFoundException;
 import com.matheusdev.backendjava.repository.PostRepository;
 import com.matheusdev.backendjava.repository.ProfileRepository;
 import org.slf4j.Logger;
